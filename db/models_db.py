@@ -10,7 +10,7 @@ Base = declarative_base()
 class Orgao(Base):
     __tablename__ = "orgaos"
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    nome = Column(String, nullable=False)
     uf = Column(String(2))
 
     unidades = relationship("Unidade", back_populates="orgao")
@@ -18,28 +18,28 @@ class Orgao(Base):
 class Unidade(Base):
     __tablename__ = "unidades"
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    nome = Column(String, nullable=False)
     uf = Column(String(2))
     orgao_id = Column(Integer, ForeignKey("orgaos.id"), nullable=True)
     orgao = relationship("Orgao", back_populates="unidades")
 
-    __table_args__ = (UniqueConstraint("name", "orgao_id", name="uq_unit_name_org"),)
+    __table_args__ = (UniqueConstraint("nome", "orgao_id", name="uq_unit_nome_org"),)
 
 class Cargo(Base):
     __tablename__ = "cargos"
     id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False, unique=True)
+    title = Column(String, nullable=False)
     escolaridade = Column(String, nullable=True)
 
 class Servidor(Base):
     __tablename__ = "servidores"
     id = Column(Integer,primary_key=True)
-    cpf = Column(String, nullable=False,  unique=True, index=True)
-    name= Column(String, nullable=False)
+    cpf = Column(String, nullable=False, index=True)
+    nome= Column(String, nullable=False)
     escolaridade = Column(String)
     situacao = Column(String)
 
-    gratificacoes = relationship("Gratificacao", back_populates="employee")
+    gratificacoes = relationship("Gratificacao", back_populates="servidor")
 
 class Gratificacao(Base):
     __tablename__ = "gratificacoes"
