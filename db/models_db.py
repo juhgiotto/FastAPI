@@ -10,7 +10,7 @@ Base = declarative_base()
 class Orgao(Base):
     __tablename__ = "orgaos"
     id = Column(Integer, primary_key=True)
-    nome = Column(String, nullable=False)
+    nome = Column(String, nullable=False, unique=True)
     uf = Column(String(2))
 
     unidades = relationship("Unidade", back_populates="orgao")
@@ -28,14 +28,14 @@ class Unidade(Base):
 class Cargo(Base):
     __tablename__ = "cargos"
     id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
+    title = Column(String, nullable=False, unique=True)
     escolaridade = Column(String, nullable=True)
 
 class Servidor(Base):
     __tablename__ = "servidores"
-    id = Column(Integer,primary_key=True)
+    id = Column(Integer, primary_key=True)
     cpf = Column(String, nullable=False, index=True)
-    nome= Column(String, nullable=False)
+    nome = Column(String, nullable=False)
     escolaridade = Column(String)
     situacao = Column(String)
 
@@ -45,11 +45,11 @@ class Gratificacao(Base):
     __tablename__ = "gratificacoes"
     id = Column(Integer, primary_key=True)
 
-    servidor_id = Column(Integer, ForeignKey("servidores.id"),nullable=False)
-    cargo_id = Column(Integer, ForeignKey("cargos.id"),nullable=True)
+    servidor_id = Column(Integer, ForeignKey("servidores.id"), nullable=False)
+    cargo_id = Column(Integer, ForeignKey("cargos.id"), nullable=True)
 
     org_exercicio_id = Column(Integer, ForeignKey("orgaos.id"), nullable=True)
-    uorg_exercicio_id = Column(Integer, ForeignKey("unidades.id"),nullable=True)
+    uorg_exercicio_id = Column(Integer, ForeignKey("unidades.id"), nullable=True)
     upag_id = Column(Integer, ForeignKey("unidades.id"), nullable=True)
     org_origem_id = Column(Integer, ForeignKey("orgaos.id"), nullable=True)
     cargo_origem_id = Column(Integer, ForeignKey("cargos.id"), nullable=True)
@@ -61,7 +61,15 @@ class Gratificacao(Base):
     servidor = relationship("Servidor", back_populates="gratificacoes")
     cargo = relationship("Cargo", foreign_keys=[cargo_id])
     cargo_origem = relationship("Cargo", foreign_keys=[cargo_origem_id])
-    org_exercicio = relationship("Orgao",  foreign_keys=[org_exercicio_id])
+    org_exercicio = relationship("Orgao", foreign_keys=[org_exercicio_id])
     org_origem = relationship("Orgao", foreign_keys=[org_origem_id])
     uorg_exercicio = relationship("Unidade", foreign_keys=[uorg_exercicio_id])
     upag = relationship("Unidade", foreign_keys=[upag_id])
+
+# Função para criar tabelas
+def create_tables():
+    Base.metadata.create_all(bind=engine)
+
+if __name__ == "__main__":
+    create_tables()
+    print("Tabelas criadas com sucesso!")
