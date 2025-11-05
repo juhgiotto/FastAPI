@@ -2,7 +2,7 @@
 
 ## 📌 Visão Geral
 
-Este repositório contém uma aplicação em Python construída com o framework FastAPI que consome dados públicos do portal Dados.gov.br e expõe uma API para consulta. O objetivo é demonstrar como montar uma API REST moderna, eficiente e documentada automaticamente.
+Este repositório contém uma aplicação em **Python** construída com o framework FastAPI que consome dados públicos do portal Dados.gov.br e expõe uma API para consulta. O objetivo é demonstrar como montar uma API REST moderna, eficiente e documentada automaticamente.
 
 ## 🛠 Funcionalidades
 
@@ -78,7 +78,3 @@ Os dados utilizados são públicos, provenientes do portal Dados.gov.br, o qual 
 
 Feito por **Júlia Sernagiotto**.
 Para dúvidas, melhorias ou contribuições, fique à vontade para abrir *issues* ou *pull requests*.
-
----
-
-Se quiser, posso preparar também uma **badge**, **exemplo de Dockerfile**, ou **guia de contribuição** para o repositório. Você gostaria que eu adicionasse isso?
